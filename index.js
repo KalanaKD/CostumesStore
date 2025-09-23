@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import productRouter from './routes/productRoute.js';
 import userRouter from './routes/userRoute.js';
+import orderRouter from './routes/orderRoute.js';
 import jwt from 'jsonwebtoken';
 
 const app = express(); // Creating an instance of an Express application
@@ -83,7 +84,7 @@ app.use((req,res,next)=>{
 
 app.use('/products', productRouter);
 app.use('/users', userRouter);
-
+app.use('/orders', orderRouter);
 
 app.listen(4000, ()=>{
     console.log("Server is running on port 4000");
