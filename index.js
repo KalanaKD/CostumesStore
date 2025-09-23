@@ -84,11 +84,6 @@ app.use((req,res,next)=>{
 app.use('/products', productRouter);
 app.use('/users', userRouter);
 
-app.get('/', (req,res)=>{
-    Student.find().then((data)=>{
-        res.json(data);
-    })
-})
 
 app.listen(4000, ()=>{
     console.log("Server is running on port 4000");
