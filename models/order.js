@@ -27,6 +27,10 @@ const orderSchema = mongoose.Schema({
         required : true,
         default : "Pending"
     },
+    labelledTotal : {
+                type : Number,
+                required : true
+    },
     total : {
         type : Number,
         required : true
@@ -48,9 +52,9 @@ const orderSchema = mongoose.Schema({
                 type : String,  
                 required : true
             },
-            images : [{
+            images : {
                 type : String
-            }],
+            },
             labelledPrice : {
                 type : Number,
                 required : true
@@ -59,11 +63,19 @@ const orderSchema = mongoose.Schema({
                 type : Number,
                 required : true
             },
-        }
+        },
+        quantity : {
+            type : Number,
+            required : true
+        },
     }],
     date : {
         type : Date,
         default : Date.now
     }
 
-    });
+});
+
+const Order = mongoose.model("orders", orderSchema);
+
+export default Order;
