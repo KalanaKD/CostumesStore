@@ -5,25 +5,30 @@ import productRouter from './routes/productRoute.js';
 import userRouter from './routes/userRoute.js';
 import orderRouter from './routes/orderRoute.js';
 import jwt from 'jsonwebtoken';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
+
+dotenv.config(); // Load environment variables from .env file
 const app = express(); // Creating an instance of an Express application
 
 
-mongoose.connect("mongodb+srv://dummyUser:1234@cluster0.1egicbe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{
     console.log("Database connected successfully");
 }).catch(()=>{
     console.log("Database connection failed");
 });
 
+app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json()); // Middleware to parse JSON request bodies
-app.use((req,res,next)=>{
+app.use((req,res,next)=>{    // Middleware to verify JWT token and extract user information
     const tokenString = req.header("Authorization");
     if(tokenString != null){
         const token = tokenString.replace("Bearer ", "");
         console.log(token);
 
-        jwt.verify(token, "secretKey",
+        jwt.verify(token, process.env.SECRET_KEY,
             (err, decoded)=>{
                 if(decoded != null){
                     console.log(decoded);
