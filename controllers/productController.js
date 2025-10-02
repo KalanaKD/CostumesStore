@@ -39,14 +39,15 @@ export function saveProducts(req, res){
 
     const product = new Product( req.body );
 
-    product.save().then(()=>{
-        res.json({
-            message : "Product added successfully"
-        });
-    }).catch(()=>{
-        res.json({
-            message : "Failed to add product"
-        });
+    product.save()
+        .then(() => {
+            res.json({ message: "Product added successfully" });
+        })
+        .catch((err) => {
+            res.status(400).json({
+            message: "Failed to add product",
+            error: err.message
+            });
     });
 }
 
