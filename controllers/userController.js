@@ -70,12 +70,13 @@ export function loginUser(req, res){
                         role : user.role,
                         img : user.img
                         },
-                        "secretKey"
+                        process.env.SECRET_KEY
                     )
 
                     res.status(200).json({
                         message : " Login successful ",
-                        token : token
+                        token : token,
+                        role : user.role 
                     });
                 }
                 else{
